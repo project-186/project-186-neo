@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Project-186</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Oswald -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- tiny page-local tweaks -->
+  <style>
+    /* space between stacked action rows */
+    .hero .actions + .actions { margin-top: 12px; }
+
+    /* logo shown in hero between rows */
+    .hero-logo {
+      width: 200px; height: auto;
+      display: block;
+      margin: 14px auto 6px;
+      opacity: .95;
+    }
+    .hero-logo:hover { opacity: 1; }
+
+    /* bigger callout link under the black buttons */
+    a.callout {
+      display: block;
+      margin-top: 10px;
+      border: 1px solid var(--edge);
+      border-radius: 14px;
+      padding: 1.1rem 1rem;
+      background: rgba(255,255,255,.03);
+      font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+      font-style: italic;
+      color: inherit;
+      text-decoration: none;
+    }
+    a.callout:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <!-- Shared header include -->
+  <div id="site-header"></div>
+  <noscript>
+    <!-- Fallback header if JS is disabled -->
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="/">PROJECT-186</a>
+        <nav class="nav" aria-label="Primary">
+          <a href="/">Home</a>
+          <a href="/FAQ">About</a>
+          <a href="/resources.html">Resources</a>
+          <a href="/iterations.html">Iterations</a>
+          <a href="/Timeline.html">Timeline</a>
+        </nav>
+      </div>
+    </header>
+  </noscript>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>Project-186</h1>
+        <!-- Rotating subheading -->
+        <p class="lead" id="rotating-sub">Imagine a better future</p>
+
+        <!-- TOP button (above the black row) -->
+        <div class="actions">
+          <a class="btn" href="/comingsoon.html">I’m struggling in the modern world. What do I do?</a>
+        </div>
+
+        <!-- Black row of buttons -->
+        <div class="actions">
+          <a class="btn outline" href="https://project-186.surge.sh">186.1</a>
+          <a class="btn outline" href="/resources.html">Resources</a>
+          <a class="btn outline" href="/FAQ">FAQ</a>
+        </div>
+
+        <!-- Logo -->
+        <img src="/p186_logo-1024.png" alt="Project-186 logo" class="hero-logo" loading="lazy">
+
+        <!-- The meme -->
+        <a class="callout" href="/comingsoon.html"><em>Have you grasped the concept of the meme?</em></a>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="container">
+        <h2>What is Project-186?</h2>
+        <p>Project-186 is a human-focused project that aims for an ambitious future. We are not a corporation or a centralized organization. Project-186 is an idea: a symbol of revolution.</p>
+
+        <h2>How can I join Project-186?</h2>
+        <p>The Project is flexible and decentralized. To contribute, explore our resources, study the vision, or spread the word. Or, email project-186@proton.me with further questions.</p>
+
+        <h2>Why should I care about Project-186?</h2>
+        <p>It's no secret that the modern world leads to stress, anxiety, or loneliness. The Project aims to reorient societal progress in order to bring forward a more human future.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        <a href="https://github.com/platon-krose" target="_blank" rel="noopener noreferrer">platon-krose</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Rotating subheading with subtle blur swap
+    (function(){
+      const el = document.getElementById('rotating-sub');
+      const phrases = [
+        "Imagine a better future",
+        "Are you ready for the revolution?",
+        "Faith will reign strong",
+        "Do you ever wonder what it takes to change the world?",
+      ];
+      let i = 0;
+
+      const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const PERIOD = 3500;   // ms between swaps
+      const DUR = 600;       // CSS animation duration (keep in sync with @keyframes)
+
+      function swap(){
+        if (REDUCED) {
+          i = (i + 1) % phrases.length;
+          el.textContent = phrases[i];
+          return;
+        }
+        el.classList.add('swap');
+        setTimeout(() => {
+          i = (i + 1) % phrases.length;
+          el.textContent = phrases[i];
+        }, DUR * 0.45);
+        el.addEventListener('animationend', () => el.classList.remove('swap'), { once: true });
+      }
+
+      setInterval(swap, PERIOD);
+    })();
+  </script>
+
+  <!-- Shared header loader -->
+  <script>
+  (function(){
+    const TARGET = document.getElementById('site-header');
+    if (!TARGET) return;
+
+    const VERSION = 'v=1'; // bump when you change /partials/header.html
+    fetch('/partials/header.html?' + VERSION, { cache: 'no-store' })
+      .then(r => r.text())
+      .then(html => {
+        TARGET.innerHTML = html;
+        const path = location.pathname.replace(/index\.html$/,'') || '/';
+        TARGET.querySelectorAll('nav a[href]').forEach(a => {
+          const href = new URL(a.getAttribute('href'), location.origin)
+                        .pathname.replace(/index\.html$/,'');
+          if (href === path) a.setAttribute('aria-current','page');
+        });
+      })
+      .catch(()=>{ /* optional: tiny fallback */ });
+  })();
+  </script>
+</body>
+</html>

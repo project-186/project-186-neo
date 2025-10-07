@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Timeline · Project-186</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Oswald -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300..700&display=swap" rel="stylesheet">
+
+  <!-- Reuse site styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Page-local styles (minimal) -->
+  <style>
+    html { scroll-behavior: smooth; }
+
+    /* Section */
+    .timeline { padding: 34px 0; border-top: 1px solid var(--edge); }
+    .timeline h1 { margin: 0 0 .5rem; text-transform: uppercase; letter-spacing: .08em; }
+    .timeline .lead { color: var(--muted); margin: 0 0 1.25rem; }
+
+    /* Year nav (above the bar) */
+    .year-nav{
+      width: min(1000px, 92vw);
+      margin: 8px auto 26px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: .5rem;
+    }
+    .year-label{
+      justify-self: center;
+      font-size: clamp(24px, 3.5vw, 36px);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .nav-btn{
+      justify-self: start;
+      background: transparent;
+      border: 1px solid var(--edge);
+      color: var(--muted);
+      padding: .5rem .75rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: "Oswald", system-ui, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      min-width: 96px;
+      text-align: center;
+    }
+    .nav-btn.next{ justify-self: end; }
+    .nav-btn:hover{ color:#fff; }
+    .nav-btn[disabled]{ opacity:.45; cursor: default; }
+
+    /* Track + points */
+    .timeline-wrap {
+      position: relative;
+      width: min(1000px, 92vw);
+      height: 120px;              /* room for labels */
+      margin: 20px auto 8px;
+    }
+    .timeline-track {
+      position: absolute; inset: 0 0 0 0;
+      height: 8px;
+      top: 50%; transform: translateY(-50%);
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2a1f55, #0f2a52); /* default gradient */
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+    .timeline-points { list-style: none; margin: 0; padding: 0; }
+    .timeline-points li {
+      position: absolute; top: 50%;
+      left: var(--pos);                 /* e.g., "--pos: 25%" */
+      transform: translate(-50%, -50%);
+      text-align: center;
+      min-width: 0;
+    }
+
+    /* Make the whole point (dot + label) a link for bigger tap target */
+    .timeline-points a.point {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      padding-bottom: 36px; /* extra click area beneath the dot */
+    }
+    .timeline-points .dot {
+      display: inline-block;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #fff;
+      border: 2px solid rgba(255,255,255,.25);
+      box-shadow: 0 0 0 2px rgba(0,0,0,.35);
+    }
+    /* Live dot: solid red; track splits colors at this position */
+    .timeline-points .dot.live{
+      background: #e53935; /* red */
+      border-color: rgba(255,255,255,.85);
+    }
+
+    .timeline-points .label {
+      position: absolute;
+      top: 16px; left: 50%; transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: .95rem;
+      color: var(--muted);
+    }
+    .timeline-points .label .tag {
+      display: block;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .timeline-points a.point:hover .label { text-decoration: underline; }
+
+    /* Legend (below the timeline) */
+    .legend {
+      width: min(1000px, 92vw);
+      margin: 8px auto 0;
+      display: flex;
+      justify-content: flex-start;
+    }
+    .legend .card{
+      border: 1px solid var(--edge);
+      border-radius: 10px;
+      background: rgba(255,255,255,.02);
+      padding: .5rem .75rem;
+      display: inline-flex; align-items: center; gap: .5rem;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+    .legend .card .dot{
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #e53935;
+      border: 2px solid rgba(255,255,255,.85);
+    }
+
+    /* Event cards (always visible, not tied to year view) */
+    .events { width: min(1000px, 92vw); margin: 16px auto 0; display: grid; gap: .75rem; }
+    .event {
+      border: 1px solid var(--edge);
+      border-radius: 12px;
+      padding: .9rem 1rem;
+      background: rgba(255,255,255,.02);
+      scroll-margin-top: 72px;
+    }
+    .event h3 { margin: 0 0 .25rem; text-transform: uppercase; letter-spacing: .06em; }
+    .event .meta { color: var(--muted); font-size: .95rem; margin: 0 0 .35rem; }
+
+    /* Brief highlight when scrolled to */
+    .event.highlight {
+      box-shadow: 0 0 0 2px #fff inset, 0 0 0 2px rgba(255,255,255,.2);
+      transition: box-shadow .6s ease;
+    }
+
+    /* Per-year visibility */
+    .year-timeline{ display:none; }
+    .year-timeline.active{ display:block; }
+
+    @media (max-width: 560px){
+      .timeline-wrap { height: 140px; }
+      .timeline-points .label { font-size: .9rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Shared header (JS include) -->
+  <div id="site-header"></div>
+  <noscript>
+    <!-- Fallback header if JS is disabled -->
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="/">PROJECT-186</a>
+        <nav class="nav" aria-label="Primary">
+          <a href="/">Home</a>
+          <a href="/FAQ">About</a>
+          <a href="/resources.html">Resources</a>
+          <a href="/iterations.html">Iterations</a>
+          <a href="/Timeline.html" aria-current="page">Timeline</a>
+        </nav>
+      </div>
+    </header>
+  </noscript>
+
+  <main>
+    <section class="timeline">
+      <div class="container">
+        <h1>Timeline</h1>
+        <p class="lead">Some of the key moments in the development of the Project.</p>
+      </div>
+
+      <!-- Year navigation -->
+      <div class="year-nav" aria-label="Year navigation">
+        <button class="nav-btn prev" data-year="2025" aria-label="Back to 2025">2024</button>
+        <div class="year-label" id="yearLabel">2025</div>
+        <button class="nav-btn next" data-year="2026" aria-label="Forward to 2026">2026 →</button>
+      </div>
+
+      <!-- ===== 2025 TIMELINE (with points) ===== -->
+      <section class="year-timeline active" data-year="2025" aria-labelledby="yearLabel">
+        <div class="timeline-wrap">
+          <div class="timeline-track" id="track-2025"></div>
+          <ul class="timeline-points" id="points-2025">
+            <!-- Your existing example points -->
+            <li style="--pos: 28%">
+              <a class="point" href="#e-platon-krose" aria-label="Jump to platon-krose">
+                <span class="dot" aria-hidden="true"></span>
+                <span class="label"><span class="tag">March 9</span>platon-krose</span>
+              </a>
+            </li>
+            <li style="--pos: 73%">
+              <a class="point" href="#e-186.1" aria-label="Jump to 186.1 sealed">
+                <span class="dot" aria-hidden="true"></span>
+                <span class="label"><span class="tag">September 26</span>186.1 sealed</span>
+              </a>
+            </li>
+            <!-- Live red dot injected here for 2025 -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- ===== 2026 TIMELINE (no dots at all; entirely blue) ===== -->
+      <section class="year-timeline" data-year="2026" aria-labelledby="yearLabel">
+        <div class="timeline-wrap">
+          <div class="timeline-track" id="track-2026"></div>
+          <ul class="timeline-points" id="points-2026">
+            <!-- Intentionally empty: NO dots shown on 2026 -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- Legend (red dot = Today) -->
+      <div class="legend" aria-label="Legend">
+        <div class="card"><span class="dot" aria-hidden="true"></span> Today</div>
+      </div>
+
+      <!-- Event cards (always visible) -->
+      <div class="events">
+        <article class="event" id="e-platon-krose">
+          <h3>March 9, 2025</h3>
+          <p class="meta">platon-krose</p>
+          <p>The scripture of TKS is posted on GitHub in raw binary form. Original GitHub: <a href="https://github.com/platon-krose/TKS" target="_blank" rel="noopener noreferrer">github.com/platon-krose/TKS</a> · Decoded scripture: <a href="https://verse-668.github.io" target="_blank" rel="noopener noreferrer">verse-668</a></p>
+        </article>
+
+        <article class="event" id="e-186.1">
+          <h3>September 26, 2025</h3>
+          <p class="meta">186.1 sealed</p>
+          <p>Project 186.1 is sealed, originally posted to <a href="https://project-186.surge.sh" target="_blank" rel="noopener noreferrer">project-186.surge.sh</a>. More resources found <a href="/iterations.html#i-186-1" target="_blank" rel="noopener noreferrer">here</a>.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Header loader + interactions -->
+  <script>
+  (function(){
+    // Inject shared header
+    const TARGET = document.getElementById('site-header');
+    if (TARGET) {
+      const VERSION = 'v=1';
+      fetch('/partials/header.html?' + VERSION, { cache: 'no-store' })
+        .then(r => r.text())
+        .then(html => {
+          TARGET.innerHTML = html;
+          const path = location.pathname.replace(/index\.html$/,'') || '/';
+          TARGET.querySelectorAll('nav a[href]').forEach(a => {
+            const href = new URL(a.getAttribute('href'), location.origin)
+                          .pathname.replace(/index\.html$/,'');
+            if (href === path) a.setAttribute('aria-current','page');
+          });
+        });
+    }
+
+    // Smooth-scroll + highlight for timeline anchors
+    document.querySelectorAll('.timeline-points a.point').forEach(a => {
+      a.addEventListener('click', function(e){
+        const id = this.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior:'smooth', block:'start' });
+        target.classList.add('highlight');
+        setTimeout(()=> target.classList.remove('highlight'), 1200);
+      });
+    });
+
+    // Year switching (only 2025 ⇄ 2026), with correct disabled boxes
+    const YEARS = [2025, 2026];
+    const yearSections = Array.from(document.querySelectorAll('.year-timeline'));
+    const label = document.getElementById('yearLabel');
+    const btnPrev = document.querySelector('.nav-btn.prev');
+    const btnNext = document.querySelector('.nav-btn.next');
+
+    function syncNav(y){
+      if (y === 2025){
+        btnPrev.textContent = '2024';
+        btnPrev.disabled = true;
+        btnPrev.setAttribute('aria-label','No earlier year');
+        btnNext.textContent = '2026 →';
+        btnNext.disabled = false;
+        btnNext.setAttribute('aria-label','Forward to 2026');
+      } else { // 2026
+        btnPrev.textContent = '← 2025';
+        btnPrev.disabled = false;
+        btnPrev.setAttribute('aria-label','Back to 2025');
+        btnNext.textContent = '2027';
+        btnNext.disabled = true;
+        btnNext.setAttribute('aria-label','No later year');
+      }
+    }
+
+    btnPrev.addEventListener('click', () => setYearView(2025));
+    btnNext.addEventListener('click', () => setYearView(2026));
+
+    // --- Track color logic + live dot handling ---
+    function clearLiveDot(){
+      document.querySelectorAll('.timeline-points li.live-marker').forEach(n => n.remove());
+    }
+    function setTrackSolid(year, color){
+      const track = document.getElementById('track-' + year);
+      if (track) track.style.background = `linear-gradient(90deg, ${color}, ${color})`;
+    }
+    function setTrackSplitAt(year, posPercent){
+      const track = document.getElementById('track-' + year);
+      if (!track) return;
+      track.style.background =
+        `linear-gradient(90deg, #2a1f55 0%, #2a1f55 ${posPercent}, #0f2a52 ${posPercent}, #0f2a52 100%)`;
+    }
+    function placeLiveDotAt(year, posPercent){
+      const ul = document.getElementById('points-' + year);
+      if (!ul) return;
+      const li = document.createElement('li');
+      li.className = 'live-marker';
+      li.style.setProperty('--pos', posPercent);
+      li.innerHTML = `<span class="dot live" aria-hidden="true"></span>`;
+      ul.appendChild(li);
+    }
+
+    function updateTracksForYearView(activeYear){
+      clearLiveDot();
+
+      // Always set 2026 to solid blue (future), no dots
+      setTrackSolid(2026, '#0f2a52');
+
+      const now = new Date();
+      const currentYear = now.getFullYear();
+
+      if (currentYear >= 2026){
+        // Entire 2025 is past → solid purple; no live dot
+        setTrackSolid(2025, '#2a1f55');
+      } else if (currentYear === 2025){
+        // Split 2025 at today's position, add live red dot (only visible on 2025 view)
+        const start = new Date(2025, 0, 1);
+        const end   = new Date(2026, 0, 1);
+        const pct = Math.max(0, Math.min(1, (now - start) / (end - start)));
+        const pos = (pct * 100).toFixed(2) + '%';
+        setTrackSplitAt(2025, pos);
+        if (activeYear === 2025){
+          placeLiveDotAt(2025, pos);
+        }
+      } else {
+        // If it's before 2025, leave default gradient
+        const track = document.getElementById('track-2025');
+        if (track) track.style.background = 'linear-gradient(90deg, #2a1f55, #0f2a52)';
+      }
+    }
+
+    function setYearView(y){
+      yearSections.forEach(s => s.classList.toggle('active', String(y) === s.dataset.year));
+      label.textContent = String(y);
+      syncNav(y);
+      updateTracksForYearView(y);
+    }
+
+    // Initial view: prefer current year if 2025/2026, else 2025
+    const currentYear = new Date().getFullYear();
+    const initial = YEARS.includes(currentYear) ? currentYear : 2025;
+    setYearView(initial);
+  })();
+  </script>
+</body>
+</html>
