@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>About · Project-186</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Oswald -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300..700&display=swap" rel="stylesheet">
+
+  <!-- Site styles (relative path for GH Pages + Neocities) -->
+  <link rel="stylesheet" href="css/styles.css?v=3" />
+
+  <!-- Page-local styles (accordion + spacing) -->
+  <style>
+    .about { padding: 34px 0; border-top: 1px solid var(--edge); }
+    .about h1 { margin: 0 0 .5rem; text-transform: uppercase; letter-spacing: .08em; }
+    .about .lead { color: var(--muted); margin: 0 0 1.25rem; }
+
+    /* Section headings */
+    .subhead {
+      margin: 1.5rem 0 .5rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    /* Accordion blocks (reusable for FAQ, Pillars, Objections) */
+    .acc { width: min(900px, 92vw); margin: 0 auto; }
+    .acc-item { border-bottom: 1px solid var(--edge); }
+    .acc-question {
+      all: unset;
+      display: flex; justify-content: space-between; align-items: center;
+      width: 100%; cursor: pointer; padding: 1rem .25rem;
+      font-family: "Oswald", system-ui, sans-serif; letter-spacing: .05em;
+    }
+    .acc-question .q { font-size: 1.05rem; }
+    .acc-question .arrow {
+      border: solid currentColor; opacity: .8;
+      border-width: 0 2px 2px 0; padding: 4px; transform: rotate(45deg);
+      transition: transform .2s ease;
+    }
+    .acc-question[aria-expanded="true"] .arrow { transform: rotate(-135deg); }
+    .acc-answer { padding: 0 0 1rem .25rem; line-height: 1.6; }
+    .acc-answer[hidden] { display: none; }
+
+    /* Keyboard focus */
+    .acc-question:focus-visible { outline: 2px solid var(--edge); outline-offset: 4px; border-radius: 6px; }
+
+    @media (prefers-reduced-motion: reduce){
+      .acc-question .arrow { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Static header (same block on every page) -->
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="./">PROJECT-186</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="./">Home</a>
+        <a href="about.html">About</a>
+        <a href="resources.html">Resources</a>
+        <a href="iterations.html">Iterations</a>
+        <a href="timeline.html">Timeline</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="about">
+      <div class="container">
+        <h1>About</h1>
+        <p class="lead"><i>"Do you ever wonder what it takes to change the world?"</i></p>
+      </div>
+
+      <!-- FAQ -->
+      <div class="acc">
+        <h2 class="subhead">FAQ</h2>
+
+        <article class="acc-item">
+          <button class="acc-question" aria-expanded="false" aria-controls="a-faq-what" id="q-faq-what">
+            <span class="q">What is Project-186?</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </button>
+          <div class="acc-answer" id="a-faq-what" role="region" aria-labelledby="q-faq-what" hidden>
+            Project-186 is a human-focused project aiming for an ambitious future. We are not a corporation
+            or a centralized organization. Project-186 is an idea: a symbol of revolution.
+          </div>
+        </article>
+
+        <article class="acc-item">
+          <button class="acc-question" aria-expanded="false" aria-controls="a-faq-join" id="q-faq-join">
+            <span class="q">How can I join the Project?</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </button>
+          <div class="acc-answer" id="a-faq-join" role="region" aria-labelledby="q-faq-join" hidden>
+            Contribute by exploring resources, sharing the vision, or starting a conversation. You can also email
+            <a href="mailto:project-186@proton.me">project-186@proton.me</a> with questions.
+          </div>
+        </article>
+
+        <article class="acc-item">
+          <button class="acc-question" aria-expanded="false" aria-controls="a-faq-why" id="q-faq-why">
+            <span class="q">Why should I care?</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </button>
+          <div class="acc-answer" id="a-faq-why" role="region" aria-labelledby="q-faq-why" hidden>
+            Many feel overwhelmed by modern life—stress, anxiety, isolation. The Project seeks to reorient progress
+            toward a more human future.
+          </div>
+        </article>
+      </div>
+
+      <!-- Pillars -->
+      <div class="acc">
+        <h2 class="subhead">Pillars</h2>
+
+        <article class="acc-item">
+          <button class="acc-question" aria-expanded="false" aria-controls="a-pillar-accountability" id="q-pillar-accountability">
+            <span class="q">I: Potential</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </button>
+          <div class="acc-answer" id="a-pillar-accountability" role="region" aria-labelledby="q-pillar-accountability" hidden>
+            Individuals take responsibility for actions and outcomes, locally and globally.
+          </div>
+        </article>
+
+        <article class="acc-item">
+          <button class="acc-question" aria-expanded="false" aria-controls="a-pillar-human" id="q-pillar-human">
+            <span class="q">II: Acceptance</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </button>
+          <div class="acc-answer" id="a-pillar-human" role="region" aria-labelledby="q-pillar-human" hidden>
+            Progress must be.
+          </div>
+        </article>
+
+        <article class="acc-item">
+          <button class="acc-question" aria-expanded="false" aria-controls="a-pillar-decentral" id="q-pillar-decentral">
+            <span class="q">III: Decentralization</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </button>
+          <div class="acc-answer" id="a-pillar-decentral" role="region" aria-labelledby="q-pillar-decentral" hidden>
+            The Project is an idea—anyone can explore and extend it without a centralized authority.
+          </div>
+        </article>
+
+          <article class="acc-item">
+          <button class="acc-question" aria-expanded="false" aria-controls="a-pillar-human" id="q-pillar-human">
+            <span class="q">IV: Advertisment</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </button>
+          <div class="acc-answer" id="a-pillar-human" role="region" aria-labelledby="q-pillar-human" hidden>
+            Progress should reduce suffering and increase meaning; technology is a tool, not the goal.
+          </div>
+        </article>
+
+          <article class="acc-item">
+          <button class="acc-question" aria-expanded="false" aria-controls="a-pillar-human" id="q-pillar-human">
+            <span class="q">V: Optimism</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </button>
+          <div class="acc-answer" id="a-pillar-human" role="region" aria-labelledby="q-pillar-human" hidden>
+            Progress should reduce suffering and increase meaning; technology is a tool, not the goal.
+          </div>
+        </article>
+      </div>
+
+      <!-- Objections -->
+      <div class="acc">
+        <h2 class="subhead">Objections</h2>
+
+        <article class="acc-item">
+          <button class="acc-question" aria-expanded="false" aria-controls="a-obj-cult" id="q-obj-cult">
+            <span class="q">Is this legit?</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </button>
+          <div class="acc-answer" id="a-obj-cult" role="region" aria-labelledby="q-obj-cult" hidden>
+            
+
+          </div>
+        </article>
+
+        <article class="acc-item">
+          <button class="acc-question" aria-expanded="false" aria-controls="a-obj-do" id="q-obj-do">
+            <span class="q">What do you actually do?</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </button>
+          <div class="acc-answer" id="a-obj-do" role="region" aria-labelledby="q-obj-do" hidden>
+            We develop and share resources, frames, and iterations (like 186.1) that help people act with purpose
+            in their own contexts.
+          </div>
+        </article>
+
+        <article class="acc-item">
+          <button class="acc-question" aria-expanded="false" aria-controls="a-obj-do" id="q-obj-do">
+            <span class="q">Do you really expect people to accept new faith on a societal scale?</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </button>
+          <div class="acc-answer" id="a-obj-do" role="region" aria-labelledby="q-obj-do" hidden>
+            The success of the Project, and its specific manifestations which it is brought forth by. 
+          </div>
+        </article>
+
+        <article class="acc-item">
+          <button class="acc-question" aria-expanded="false" aria-controls="a-obj-leader" id="q-obj-leader">
+            <span class="q">Isn’t it morally wrong to not take political positions, if certain political stances are better than others when concerning human well-being?</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </button>
+          <div class="acc-answer" id="a-obj-leader" role="region" aria-labelledby="q-obj-leader" hidden>
+            ...
+          </div>
+        </article>
+        <article class="acc-item">
+          <button class="acc-question" aria-expanded="false" aria-controls="a-obj-leader" id="q-obj-leader">
+            <span class="q">Why the focus on human life? What about animals or a general consideration for conscious suffering?</span>
+            <span class="arrow" aria-hidden="true"></span>
+          </button>
+          <div class="acc-answer" id="a-obj-leader" role="region" aria-labelledby="q-obj-leader" hidden>
+            ...
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        <a href="https://github.com/platon-krose" target="_blank" rel="noopener noreferrer">platon-krose</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Accordion wiring -->
+  <script>
+  (function(){
+    // Wire up every accordion item on the page
+    document.querySelectorAll('.acc-item').forEach(function(item, idx){
+      var btn = item.querySelector('.acc-question');
+      var ans = item.querySelector('.acc-answer');
+      if (!btn || !ans) return;
+
+      // Ensure IDs/relationships exist and are unique-ish
+      if (!btn.id) btn.id = 'q-' + (idx+1);
+      if (!ans.id) ans.id = 'a-' + (idx+1);
+      btn.setAttribute('aria-controls', ans.id);
+      ans.setAttribute('aria-labelledby', btn.id);
+
+      btn.addEventListener('click', function(){
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        ans.hidden = open;
+      });
+    });
+
+    // Open hash target on load if present (#q-... or #a-...)
+    var hash = location.hash.slice(1);
+    if (hash) {
+      var el = document.getElementById(hash);
+      if (el) {
+        var btn = el.classList && el.classList.contains('acc-answer')
+          ? document.querySelector('[aria-controls="'+el.id+'"]')
+          : el;
+        if (btn && btn.classList.contains('acc-question')) {
+          btn.click();
+          setTimeout(function(){ btn.scrollIntoView({ behavior:'smooth', block:'start' }); }, 80);
+        }
+      }
+    }
+  })();
+  </script>
+
+  <!-- Optional: mark current nav item active -->
+  <script>
+  (function(){
+    var here = location.pathname.replace(/\/index\.html?$/,'/'); // treat index as "/"
+    document.querySelectorAll('.site-header nav a[href]').forEach(function(a){
+      var path = new URL(a.getAttribute('href'), location.href).pathname
+                  .replace(/\/index\.html?$/,'/');
+      if (path === here) a.setAttribute('aria-current','page');
+    });
+  })();
+  </script>
+</body>
+</html>

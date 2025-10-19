@@ -69,8 +69,41 @@ h1{
 }
 .content h2{
   margin:.2rem 0 .5rem; letter-spacing:.06em; text-transform:uppercase;
+}/* Vertical cards list with roomy separators */
+.cards-vertical{
+  width: min(1000px, 92vw);
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  border-top: 1px solid var(--edge);  /* top line above the first card */
 }
 
+/* .cards-vertical li { border-bottom: 1px solid var(--edge); } */
+
+/* add a separator + spacing BEFORE every item except the first */
+.cards-vertical li + li::before{
+  content: "";
+  display: block;
+  height: 1px;
+  background: var(--edge);
+  margin: 14px 0;   /* <— controls the vertical space between cards */
+}
+
+/* keep your larger, centered cards */
+.statement-card{
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 1.35rem 0;   /* height of each card */
+  text-align: center;
+}
+.statement-card:hover .statement-title{ text-decoration: underline; }
+.statement-title{
+  margin: 0;
+  font-family: "Oswald", system-ui, sans-serif;
+  letter-spacing: .04em;
+  font-size: clamp(1.15rem, 2.6vw, 1.45rem);
+}
 /* Footer */
 .site-footer{
   border-top:1px solid var(--edge);

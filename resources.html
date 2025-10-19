@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300..700&display=swap" rel="stylesheet">
 
-  <!-- Site styles -->
+  <!-- Site styles (relative path for GitHub Pages compatibility) -->
   <link rel="stylesheet" href="css/styles.css" />
 
   <!-- Page-local styles (tiny) -->
@@ -19,12 +19,13 @@
     .resources h1 { margin: 0 0 .5rem; text-transform: uppercase; letter-spacing: .08em; }
     .resources .lead { color: var(--muted); margin: 0 0 1.25rem; }
 
-    .grid {
+    /* Vertical stack instead of grid */
+    .stack {
       width: min(1000px, 92vw);
       margin: 0 auto;
-      display: grid;
+      display: flex;
+      flex-direction: column;
       gap: .9rem;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     }
     .card {
       border: 1px solid var(--edge);
@@ -56,81 +57,75 @@
   </style>
 </head>
 <body>
-  <!-- Shared header (JS include) -->
-  <div id="site-header"></div>
-  <noscript>
-    <!-- Fallback header if JS is disabled -->
-    <header class="site-header">
-      <div class="container">
-        <a class="brand" href="/">PROJECT-186</a>
-        <nav class="nav" aria-label="Primary">
-          <a href="/">Home</a>
-          <a href="/FAQ">About</a>
-          <a href="/resources.html" aria-current="page">Resources</a>
-          <a href="/iterations.html">Iterations</a>
-          <a href="/Timeline.html">Timeline</a>
-        </nav>
-      </div>
-    </header>
-  </noscript>
+  <!-- Static header -->
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="./">PROJECT-186</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="./">Home</a>
+        <a href="about.html">About</a>
+        <a href="resources.html" aria-current="page">Resources</a>
+        <a href="iterations.html">Iterations</a>
+        <a href="timeline.html">Timeline</a>
+      </nav>
+    </div>
+  </header>
 
   <main>
     <section class="resources">
       <div class="container">
         <h1>Resources</h1>
-        <p class="lead">A compilation of resources associated with the Project.</p>
+        <p class="lead"><i>"If somebody told you something that changed your life forever, could you keep it secret?"</i></p>
       </div>
 
-      <div class="grid">
+      <div class="stack">
         <!-- Primary resources 186.neo -->
         <article class="card">
-          <h2>186.neo</h2>
+          <h2>Primary resources · 186.neo</h2>
           <ul class="links">
             <li><a href="#" target="_blank" rel="noopener">Example A</a></li>
             <li><a href="#" target="_blank" rel="noopener">Example B</a></li>
           </ul>
         </article>
 
-        <!-- scripture resources -->
+        <!-- Scripture resources -->
         <article class="card">
-          <h2>scripture resources</h2>
+          <h2>Scripture resources</h2>
           <ul class="links">
             <li><a href="#" target="_blank" rel="noopener">Example A</a></li>
             <li><a href="#" target="_blank" rel="noopener">Example B</a></li>
           </ul>
         </article>
 
-        <!-- external resources -->
+        <!-- External resources -->
         <article class="card">
-          <h2>external resources</h2>
+          <h2>External resources</h2>
           <ul class="links">
-            <li><a href="#" target="_blank" rel="noopener">Example A</a></li>
-            <li><a href="#" target="_blank" rel="noopener">Example B</a></li>
+            <li><a href="https://github.com/project-186" target="_blank" rel="noopener">Project-186 Github</a></li>
+            <li><a href="https://github.com/verse-668" target="_blank" rel="noopener">Verse-668 Github</a></li>
           </ul>
         </article>
       </div>
     </section>
   </main>
 
-  <!-- Header loader (same snippet used on other pages) -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        <a href="https://github.com/platon-krose" target="_blank" rel="noopener noreferrer">platon-krose</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Optional: mark current nav item active -->
   <script>
   (function(){
-    const TARGET = document.getElementById('site-header');
-    if (!TARGET) return;
-
-    const VERSION = 'v=1'; // bump this when you edit /partials/header.html
-    fetch('/partials/header.html?' + VERSION, { cache: 'no-store' })
-      .then(r => r.text())
-      .then(html => {
-        TARGET.innerHTML = html;
-        const path = location.pathname.replace(/index\.html$/,'') || '/';
-        TARGET.querySelectorAll('nav a[href]').forEach(a => {
-          const href = new URL(a.getAttribute('href'), location.origin)
-                        .pathname.replace(/index\.html$/,'');
-          if (href === path) a.setAttribute('aria-current','page');
-        });
-      })
-      .catch(()=>{ /* optional: tiny fallback */ });
+    var here = location.pathname.replace(/\/index\.html?$/,'/');
+    document.querySelectorAll('.site-header nav a[href]').forEach(function(a){
+      var path = new URL(a.getAttribute('href'), location.href).pathname
+                  .replace(/\/index\.html?$/,'/');
+      if (path === here) a.setAttribute('aria-current','page');
+    });
   })();
   </script>
 </body>

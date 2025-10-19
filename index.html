@@ -10,56 +10,76 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300..700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="css/styles.css?v=3" />
 
-  <!-- tiny page-local tweaks -->
+  <!-- Tiny page-local tweaks -->
   <style>
-    /* space between stacked action rows */
+    /* space between stacked action rows (kept for future) */
     .hero .actions + .actions { margin-top: 12px; }
 
-    /* logo shown in hero between rows */
-    .hero-logo {
-      width: 200px; height: auto;
-      display: block;
-      margin: 14px auto 6px;
-      opacity: .95;
+    /* Vertical cards list with separators (no section header) */
+    .cards-vertical {
+      width: min(1000px, 92vw);
+      margin: 0 auto;
+      list-style: none;
+      padding: 0;
+      border-top: 1px solid var(--edge);
     }
-    .hero-logo:hover { opacity: 1; }
-
-    /* bigger callout link under the black buttons */
-    a.callout {
+    .cards-vertical li {
+      border-bottom: 1px solid var(--edge);
+    }
+    .statement-card {
       display: block;
-      margin-top: 10px;
-      border: 1px solid var(--edge);
-      border-radius: 14px;
-      padding: 1.1rem 1rem;
-      background: rgba(255,255,255,.03);
-      font-size: clamp(1.05rem, 2.4vw, 1.3rem);
-      font-style: italic;
+      text-decoration: none;
       color: inherit;
+      /* Taller + more vertical breathing room */
+      padding: 1.35rem 0;
+      text-align: center;
+    }
+    .statement-title {
+      margin: 0;
+      font-family: "Oswald", system-ui, sans-serif;
+      letter-spacing: .04em;
+      /* Slightly larger text */
+      font-size: clamp(1.15rem, 2.6vw, 1.45rem);
+    }
+    .statement-card:hover .statement-title { text-decoration: underline; }
+
+    /* Bottom logo block */
+    .bottom-logo {
+      width: min(1000px, 92vw);
+      margin: 18px auto 0;
+      text-align: center;
+    }
+    .bottom-logo a {
+      display: inline-block;
       text-decoration: none;
     }
-    a.callout:hover { text-decoration: underline; }
+    .bottom-logo img {
+      width: 200px; height: auto;
+      display: block;
+      margin: 16px auto 0;
+      opacity: .95;
+      transition: opacity .15s ease;
+    }
+    .bottom-logo img:hover { opacity: 1; }
   </style>
 </head>
 <body>
-  <!-- Shared header include -->
-  <div id="site-header"></div>
-  <noscript>
-    <!-- Fallback header if JS is disabled -->
-    <header class="site-header">
-      <div class="container">
-        <a class="brand" href="/">PROJECT-186</a>
-        <nav class="nav" aria-label="Primary">
-          <a href="/">Home</a>
-          <a href="/FAQ">About</a>
-          <a href="/resources.html">Resources</a>
-          <a href="/iterations.html">Iterations</a>
-          <a href="/Timeline.html">Timeline</a>
-        </nav>
-      </div>
-    </header>
-  </noscript>
+  <!-- Static header (same block on every page) -->
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="./">PROJECT-186</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="./">Home</a>
+        <a href="about.html">About</a>
+        <a href="resources.html">Resources</a>
+        <a href="iterations.html">Iterations</a>
+        <a href="timeline.html">Timeline</a>
+      </nav>
+    </div>
+  </header>
 
   <main>
     <section class="hero">
@@ -68,38 +88,64 @@
         <!-- Rotating subheading -->
         <p class="lead" id="rotating-sub">Imagine a better future</p>
 
-        <!-- TOP button (above the black row) -->
-        <div class="actions">
-          <a class="btn" href="/comingsoon.html">I’m struggling in the modern world. What do I do?</a>
-        </div>
-
         <!-- Black row of buttons -->
         <div class="actions">
           <a class="btn outline" href="https://project-186.surge.sh">186.1</a>
-          <a class="btn outline" href="/resources.html">Resources</a>
-          <a class="btn outline" href="/FAQ">FAQ</a>
+          <a class="btn outline" href="resources.html">Resources</a>
+          <a class="btn outline" href="about.html">FAQ</a>
         </div>
-
-        <!-- Logo -->
-        <img src="/p186_logo-1024.png" alt="Project-186 logo" class="hero-logo" loading="lazy">
-
-        <!-- The meme -->
-        <a class="callout" href="/comingsoon.html"><em>Have you grasped the concept of the meme?</em></a>
       </div>
     </section>
 
-    <section class="content">
+    <!-- Vertical clickable cards (no section header) -->
+    <section class="statements">
       <div class="container">
-        <h2>What is Project-186?</h2>
-        <p>Project-186 is a human-focused project that aims for an ambitious future. We are not a corporation or a centralized organization. Project-186 is an idea: a symbol of revolution.</p>
-
-        <h2>How can I join Project-186?</h2>
-        <p>The Project is flexible and decentralized. To contribute, explore our resources, study the vision, or spread the word. Or, email project-186@proton.me with further questions.</p>
-
-        <h2>Why should I care about Project-186?</h2>
-        <p>It's no secret that the modern world leads to stress, anxiety, or loneliness. The Project aims to reorient societal progress in order to bring forward a more human future.</p>
+        <ul class="cards-vertical">
+          <li>
+            <a class="statement-card" href="comingsoon.html">
+              <h3 class="statement-title">I’m struggling in the modern world. What do I do?</h3>
+            </a>
+          </li>
+          <li>
+            <a class="statement-card" href="comingsoon.html">
+              <h3 class="statement-title">BILLIONS MUST EMBRACE</h3>
+            </a>
+          </li>
+          <li>
+            <a class="statement-card" href="comingsoon.html">
+              <h3 class="statement-title">THE FUTURE IS BRIGHT</h3>
+            </a>
+          </li>
+          <li>
+            <a class="statement-card" href="comingsoon.html">
+              <h3 class="statement-title">Do you understand it now?</h3>
+            </a>
+          </li>
+          <li>
+            <a class="statement-card" href="comingsoon.html">
+              <h3 class="statement-title">Have you grasped the concept of the meme?</h3>
+            </a>
+          </li>
+          <li>
+            <a class="statement-card" href="comingsoon.html">
+              <h3 class="statement-title">THIS IS WAR</h3>
+            </a>
+          </li>
+          <li>
+            <a class="statement-card" href="comingsoon.html">
+              <h3 class="statement-title">What does it mean?</h3>
+            </a>
+          </li>
+        </ul>
       </div>
     </section>
+
+    <!-- Bottom logo moved here and clickable -->
+    <div class="bottom-logo">
+      <a href="https://verse-668.github.io" aria-label="">
+        <img src="p186_logo-1024.png" alt="Project-186 logo">
+      </a>
+    </div>
   </main>
 
   <footer class="site-footer">
@@ -110,60 +156,42 @@
     </div>
   </footer>
 
-  <script>
-    // Rotating subheading with subtle blur swap
-    (function(){
-      const el = document.getElementById('rotating-sub');
-      const phrases = [
-        "Imagine a better future",
-        "Are you ready for the revolution?",
-        "Faith will reign strong",
-        "Do you ever wonder what it takes to change the world?",
-      ];
-      let i = 0;
-
-      const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const PERIOD = 3500;   // ms between swaps
-      const DUR = 600;       // CSS animation duration (keep in sync with @keyframes)
-
-      function swap(){
-        if (REDUCED) {
-          i = (i + 1) % phrases.length;
-          el.textContent = phrases[i];
-          return;
-        }
-        el.classList.add('swap');
-        setTimeout(() => {
-          i = (i + 1) % phrases.length;
-          el.textContent = phrases[i];
-        }, DUR * 0.45);
-        el.addEventListener('animationend', () => el.classList.remove('swap'), { once: true });
-      }
-
-      setInterval(swap, PERIOD);
-    })();
-  </script>
-
-  <!-- Shared header loader -->
+  <!-- Rotating subheading with subtle blur swap -->
   <script>
   (function(){
-    const TARGET = document.getElementById('site-header');
-    if (!TARGET) return;
+    const el = document.getElementById('rotating-sub');
+    const phrases = [
+      "Imagine a better future",
+      "Are you ready for the revolution?",
+      "Faith will reign strong",
+      "Do you ever wonder what it takes to change the world?"
+    ];
+    let i = 0;
 
-    const VERSION = 'v=1'; // bump when you change /partials/header.html
-    fetch('/partials/header.html?' + VERSION, { cache: 'no-store' })
-      .then(r => r.text())
-      .then(html => {
-        TARGET.innerHTML = html;
-        const path = location.pathname.replace(/index\.html$/,'') || '/';
-        TARGET.querySelectorAll('nav a[href]').forEach(a => {
-          const href = new URL(a.getAttribute('href'), location.origin)
-                        .pathname.replace(/index\.html$/,'');
-          if (href === path) a.setAttribute('aria-current','page');
-        });
-      })
-      .catch(()=>{ /* optional: tiny fallback */ });
+    const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const PERIOD = 3500;   // ms between swaps
+    const DUR = 600;       // CSS animation duration (keep in sync with @keyframes)
+
+    function swap(){
+      if (REDUCED) {
+        i = (i + 1) % phrases.length;
+        el.textContent = phrases[i];
+        return;
+      }
+      el.classList.add('swap');
+      setTimeout(function(){
+        i = (i + 1) % phrases.length;
+        el.textContent = phrases[i];
+      }, Math.floor(DUR * 0.45));
+      el.addEventListener('animationend', function onEnd(){
+        el.classList.remove('swap');
+        el.removeEventListener('animationend', onEnd);
+      }, { once: true });
+    }
+
+    setInterval(swap, PERIOD);
   })();
   </script>
+
 </body>
 </html>
