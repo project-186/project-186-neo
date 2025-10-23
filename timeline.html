@@ -167,23 +167,20 @@
   </style>
 </head>
 <body>
-  <!-- Shared header (JS include) -->
-  <div id="site-header"></div>
-  <noscript>
-    <!-- Fallback header if JS is disabled -->
-    <header class="site-header">
-      <div class="container">
-        <a class="brand" href="/">PROJECT-186</a>
-        <nav class="nav" aria-label="Primary">
-          <a href="/">Home</a>
-          <a href="/FAQ">About</a>
-          <a href="/resources.html">Resources</a>
-          <a href="/iterations.html">Iterations</a>
-          <a href="/timeline.html" aria-current="page">Timeline</a>
-        </nav>
-      </div>
-    </header>
-  </noscript>
+
+  <!-- Static header  -->
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="./">PROJECT-186</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="./">Home</a>
+        <a href="about.html">About</a>
+        <a href="resources.html">Resources</a>
+        <a href="iterations.html">Iterations</a>
+        <a href="timeline.html" aria-current="page">Timeline</a>
+      </nav>
+    </div>
+  </header>
 
   <main>
     <section class="timeline">
@@ -204,7 +201,6 @@
         <div class="timeline-wrap">
           <div class="timeline-track" id="track-2025"></div>
           <ul class="timeline-points" id="points-2025">
-            <!-- Your existing example points -->
             <li style="--pos: 28%">
               <a class="point" href="#e-platon-krose" aria-label="Jump to platon-krose">
                 <span class="dot" aria-hidden="true"></span>
@@ -227,7 +223,7 @@
         <div class="timeline-wrap">
           <div class="timeline-track" id="track-2026"></div>
           <ul class="timeline-points" id="points-2026">
-            <!-- Intentionally empty: NO dots shown on 2026 -->
+            <!-- Intentionally empty -->
           </ul>
         </div>
       </section>
@@ -242,38 +238,28 @@
         <article class="event" id="e-platon-krose">
           <h3>March 9, 2025</h3>
           <p class="meta">platon-krose</p>
-          <p>The scripture of TKS is posted on GitHub in raw binary form. Original GitHub: <a href="https://github.com/platon-krose/TKS" target="_blank" rel="noopener noreferrer">github.com/platon-krose/TKS</a> · Decoded scripture: <a href="https://verse-668.github.io" target="_blank" rel="noopener noreferrer">verse-668</a></p>
+          <p>The scripture of TKS is posted on GitHub in raw binary form. Original GitHub:
+            <a href="https://github.com/platon-krose/TKS" target="_blank" rel="noopener noreferrer">github.com/platon-krose/TKS</a>
+            · Decoded scripture:
+            <a href="https://verse-668.github.io" target="_blank" rel="noopener noreferrer">verse-668</a>
+          </p>
         </article>
 
         <article class="event" id="e-186.1">
           <h3>September 26, 2025</h3>
           <p class="meta">186.1 sealed</p>
-          <p>Project 186.1 is sealed, originally posted to <a href="https://project-186.surge.sh" target="_blank" rel="noopener noreferrer">project-186.surge.sh</a>. More resources found <a href="/iterations.html#i-186-1" target="_blank" rel="noopener noreferrer">here</a>.</p>
+          <p>Project 186.1 is sealed, originally posted to
+            <a href="https://project-186.surge.sh" target="_blank" rel="noopener noreferrer">project-186.surge.sh</a>.
+            More resources found <a href="iterations.html#i-186-1" target="_blank" rel="noopener noreferrer">here</a>.
+          </p>
         </article>
       </div>
     </section>
   </main>
 
-  <!-- Header loader + interactions -->
+  <!-- Interactions (header include removed) -->
   <script>
   (function(){
-    // Inject shared header
-    const TARGET = document.getElementById('site-header');
-    if (TARGET) {
-      const VERSION = 'v=1';
-      fetch('/partials/header.html?' + VERSION, { cache: 'no-store' })
-        .then(r => r.text())
-        .then(html => {
-          TARGET.innerHTML = html;
-          const path = location.pathname.replace(/index\.html$/,'') || '/';
-          TARGET.querySelectorAll('nav a[href]').forEach(a => {
-            const href = new URL(a.getAttribute('href'), location.origin)
-                          .pathname.replace(/index\.html$/,'');
-            if (href === path) a.setAttribute('aria-current','page');
-          });
-        });
-    }
-
     // Smooth-scroll + highlight for timeline anchors
     document.querySelectorAll('.timeline-points a.point').forEach(a => {
       a.addEventListener('click', function(e){

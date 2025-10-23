@@ -12,59 +12,7 @@
 
   <!-- Site CSS -->
   <link rel="stylesheet" href="css/styles.css?v=3" />
-
-  <!-- Tiny page-local tweaks -->
-  <style>
-    /* space between stacked action rows (kept for future) */
-    .hero .actions + .actions { margin-top: 12px; }
-
-    /* Vertical cards list with separators (no section header) */
-    .cards-vertical {
-      width: min(1000px, 92vw);
-      margin: 0 auto;
-      list-style: none;
-      padding: 0;
-      border-top: 1px solid var(--edge);
-    }
-    .cards-vertical li {
-      border-bottom: 1px solid var(--edge);
-    }
-    .statement-card {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      /* Taller + more vertical breathing room */
-      padding: 1.35rem 0;
-      text-align: center;
-    }
-    .statement-title {
-      margin: 0;
-      font-family: "Oswald", system-ui, sans-serif;
-      letter-spacing: .04em;
-      /* Slightly larger text */
-      font-size: clamp(1.15rem, 2.6vw, 1.45rem);
-    }
-    .statement-card:hover .statement-title { text-decoration: underline; }
-
-    /* Bottom logo block */
-    .bottom-logo {
-      width: min(1000px, 92vw);
-      margin: 18px auto 0;
-      text-align: center;
-    }
-    .bottom-logo a {
-      display: inline-block;
-      text-decoration: none;
-    }
-    .bottom-logo img {
-      width: 200px; height: auto;
-      display: block;
-      margin: 16px auto 0;
-      opacity: .95;
-      transition: opacity .15s ease;
-    }
-    .bottom-logo img:hover { opacity: 1; }
-  </style>
+  
 </head>
 <body>
   <!-- Static header (same block on every page) -->

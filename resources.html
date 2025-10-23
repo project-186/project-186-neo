@@ -117,16 +117,5 @@
     </div>
   </footer>
 
-  <!-- Optional: mark current nav item active -->
-  <script>
-  (function(){
-    var here = location.pathname.replace(/\/index\.html?$/,'/');
-    document.querySelectorAll('.site-header nav a[href]').forEach(function(a){
-      var path = new URL(a.getAttribute('href'), location.href).pathname
-                  .replace(/\/index\.html?$/,'/');
-      if (path === here) a.setAttribute('aria-current','page');
-    });
-  })();
-  </script>
 </body>
 </html>

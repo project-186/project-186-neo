@@ -78,8 +78,9 @@ h1{
   border-top: 1px solid var(--edge);  /* top line above the first card */
 }
 
-/* .cards-vertical li { border-bottom: 1px solid var(--edge); } */
-
+.cards-vertical li {
+      border-bottom: 1px solid var(--edge);
+    }
 /* add a separator + spacing BEFORE every item except the first */
 .cards-vertical li + li::before{
   content: "";
@@ -113,6 +114,25 @@ h1{
 .site-footer .container{
   padding:18px 8px; text-align:center;
 }
+
+    /* Bottom logo block */
+    .bottom-logo {
+      width: min(1000px, 92vw);
+      margin: 18px auto 0;
+      text-align: center;
+    }
+    .bottom-logo a {
+      display: inline-block;
+      text-decoration: none;
+    }
+    .bottom-logo img {
+      width: 200px; height: auto;
+      display: block;
+      margin: 16px auto 0;
+      opacity: .95;
+      transition: opacity .15s ease;
+    }
+    .bottom-logo img:hover { opacity: 1; }
 
 /* Focus (keyboard accessibility) */
 :focus-visible{ outline:2px solid #fff; outline-offset:3px; border-radius:6px }
