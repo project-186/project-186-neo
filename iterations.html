@@ -9,65 +9,62 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&family=Oswald:wght@300..700&display=swap" rel="stylesheet">
 
-  <!-- Reuse your site styles -->
   <link rel="stylesheet" href="css/styles.css" />
 
-  <!-- Tiny page-local tweaks -->
   <style>
     .iterations { padding: 34px 0; border-top: 1px solid var(--edge); }
     .iterations h1 { margin: 0 0 .5rem; text-transform: uppercase; letter-spacing: .08em; }
-    .iterations p.lead { color: var(--muted); margin: 0 0 1.25rem; }
+    .iterations .lead { color: var(--muted); margin: 0 0 1.25rem; }
 
     .list { width: min(900px, 92vw); margin: 0 auto; display: grid; gap: .75rem; }
 
-    .list details,
-    .info-card,
-    .resource-box {
+    .list details{
       border: 1px solid var(--edge);
       border-radius: 12px;
       background: rgba(255,255,255,.02);
     }
-
     .list summary {
       list-style: none;
       padding: .9rem 1rem;
       cursor: pointer;
       display: flex; align-items: center; justify-content: space-between;
+      gap: .75rem;
     }
     .list summary::-webkit-details-marker { display: none; }
-    .list summary .label { font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-    .list summary .hint { color: var(--muted); font-size: .95rem; }
+    .label { font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .hint { color: var(--muted); font-size: .95rem; }
 
-    .links { margin: 0; padding: .2rem 1rem 1rem; list-style: none; display: grid; gap: .4rem; }
-    .links a { text-decoration: none; border: 1px solid var(--edge); padding: .55rem .7rem; border-radius: 10px; display: inline-block; }
-    .links a:hover { text-decoration: underline; }
-
-    .resource-box { width: min(900px, 92vw); margin: .75rem auto 0; padding: .9rem 1rem; }
-    .resource-box .title { font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
-    .resource-box .links { padding: .4rem 0 0; }
-
-    .divider { width: min(900px,92vw); margin: 1rem auto; border: 0; height: 1px; background: var(--edge); }
-
-    .info-card { width: min(900px, 92vw); margin: .75rem auto 0; }
-    .info-card > summary { list-style: none; padding: .9rem 1rem; cursor: pointer; display: flex; align-items: center; gap: .5rem; }
-    .info-card > summary::-webkit-details-marker { display: none; }
-    .qmark {
-      width: 1.2rem; height: 1.2rem; border: 1px solid var(--edge); border-radius: 50%;
-      display: inline-grid; place-items: center; font-weight: 700; font-size: .8rem;
+    .links { margin: 0; padding: .2rem 1rem 1rem; list-style: none; display: grid; gap: .6rem; }
+    .links li { display: flex; align-items: center; gap: .75rem; }
+    .links a {
+      text-decoration: none;
+      border: 1px solid var(--edge);
+      padding: .55rem .7rem;
+      border-radius: 10px;
+      display: inline-block;
+      flex: 0 1 auto;
     }
-    .info-card .info-body { padding: 0 1rem 1rem; color: var(--muted); }
+    .links a:hover { text-decoration: underline; }
+    .subdate {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: .92rem;
+      letter-spacing: .02em;
+      white-space: nowrap;
+    }
   </style>
 </head>
 <body>
-    <header class="site-header">
+  <header class="site-header">
     <div class="container">
       <a class="brand" href="./">PROJECT-186</a>
       <nav class="nav" aria-label="Primary">
         <a href="./">Home</a>
         <a href="about.html">About</a>
-        <a href="resources.html" aria-current="page">Resources</a>
-        <a href="iterations.html">Iterations</a>
+        <a href="resources.html">Resources</a>
+        <a href="iterations.html" aria-current="page">Iterations</a>
         <a href="timeline.html">Timeline</a>
       </nav>
     </div>
@@ -81,18 +78,48 @@
       </div>
 
       <div class="list">
-        <!-- 186.1 (updated links) -->
+        <!-- TKS -->
+        <details id="i-tks">
+          <summary>
+            <span class="label">TKS</span>
+            <span class="hint">Last Modified</span>
+          </summary>
+          <ul class="links">
+            <li>
+              <a href="https://github.com/platon-krose/TKS" target="_blank" rel="noopener">GitHub</a>
+              <span class="subdate">MAR10.2025</span>
+            </li>
+            <li>
+              <a href="https://verse-668.github.io" target="_blank" rel="noopener">verse-668</a>
+              <span class="subdate">OCT30.2025</span>
+            </li>
+          </ul>
+        </details>
+
+        <!-- 186.1 -->
         <details id="i-186-1">
           <summary>
             <span class="label">186.1</span>
-            <span class="hint">resources</span>
+            <span class="hint">Last Modified</span>
           </summary>
           <ul class="links">
-            <li><a href="https://project-186.surge.sh" target="_blank" rel="noopener">Surge</a></li>
-            <li><a href="https://archive.org/details/Project-186.1" target="_blank" rel="noopener">Internet Archive</a></li>
-            <li><a href="https://github.com/verse-668" target="_blank" rel="noopener">GitHub</a></li>
-            <li><a href="#" target="_blank" rel="noopener">Neocities</a></li>
-            <li><a href="#" target="_blank" rel="noopener">Other</a></li>
+            <li>
+              <a href="https://project-186.surge.sh" target="_blank" rel="noopener">Surge</a>
+              <span class="subdate">SEP26.2025</span>
+            </li>
+            <li>
+              <a href="https://archive.org/details/Project-186.1" target="_blank" rel="noopener">Internet Archive</a>
+              <span class="subdate">SEP26.2025</span>
+            </li>
+            <li>
+              <a href="https://project-186.github.io/project-186-1/" target="_blank" rel="noopener">GitHub</a>
+              <span class="subdate">OCT30.2025</span>
+            </li>
+            
+            <li>
+              <a href="https://project-186-1.neocities.org/" target="_blank" rel="noopener">Neocities</a>
+              <span class="subdate">OCT30.2025</span>
+            </li>
           </ul>
         </details>
 
@@ -100,78 +127,45 @@
         <details id="i-186-neo">
           <summary>
             <span class="label">186.neo</span>
-            <span class="hint">resources</span>
+            <span class="hint">Last Modified</span>
           </summary>
           <ul class="links">
-            <li><a href="#" target="_blank" rel="noopener">Surge</a></li>
-            <li><a href="#" target="_blank" rel="noopener">Internet Archive</a></li>
-            <li><a href="#" target="_blank" rel="noopener">GitHub</a></li>
-          </ul>
-        </details>
-
-        <!-- Example placeholder -->
-        <details id="i-186-x">
-          <summary>
-            <span class="label">186.x</span>
-            <span class="hint">resources</span>
-          </summary>
-          <ul class="links">
-            <li><a href="#" target="_blank" rel="noopener">Surge</a></li>
-            <li><a href="#" target="_blank" rel="noopener">Internet Archive</a></li>
+            <li>
+              <a href="#" target="_blank" rel="noopener">Surge</a>
+              <span class="subdate">OCT30.2025</span>
+            </li>
+            <li>
+              <a href="https://project-186.github.io/project-186-neo/" target="_blank" rel="noopener">GitHub</a>
+              <span class="subdate">OCT30.2025</span>
+            </li>
           </ul>
         </details>
       </div>
-
-      <!-- platon-krose resource box (non-expandable) -->
-      <div class="resource-box" id="i-platon-krose">
-        <div class="title">platon-krose</div>
-        <ul class="links">
-          <li><a href="https://github.com/platon-krose/TKS" target="_blank" rel="noopener">GitHub</a></li>
-        </ul>
-      </div>
-
-      <!-- symbols (expandable iteration) -->
-      <div class="list" style="margin-top:.75rem">
-        <details id="i-symbols">
-          <summary>
-            <span class="label">symbols</span>
-            <span class="hint">resources</span>
-          </summary>
-          <ul class="links">
-            <li><a href="#" target="_blank" rel="noopener">Reference</a></li>
-            <li><a href="#" target="_blank" rel="noopener">Assets</a></li>
-          </ul>
-        </details>
-      </div>
-
-      <!-- Divider line -->
-      <hr class="divider" />
-
-      <!-- Info box (expandable, with ? icon) -->
-      <details class="info-card">
-        <summary><span class="qmark" aria-hidden="true">?</span> <span>More details</span></summary>
-        <div class="info-body">
-          <p>This list represents various iterations of Project-186. Remember: Project-186 is defined by a decentralized vision, so no specific iteration is more official than another. Iterations are only defined by self-declarations of their relation to the Project.</p>
-        </div>
-      </details>
     </section>
   </main>
 
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        <a href="https://github.com/platon-krose" target="_blank" rel="noopener noreferrer">platon-krose</a>
+      </p>
+    </div>
+  </footer>
+
   <script>
-    // Open an iteration from the URL hash (e.g., #i-186-1)
     (function(){
       function openFromHash(){
         const id = location.hash.slice(1);
         if(!id) return;
         const d = document.getElementById(id);
-        if (d && (d.tagName.toLowerCase() === 'details' || d.classList.contains('resource-box'))) {
-          if (d.tagName.toLowerCase() === 'details') d.open = true;
+        if (d && d.tagName.toLowerCase() === 'details') {
+          d.open = true;
           d.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
       document.querySelectorAll('.list details').forEach(d => {
         const s = d.querySelector('summary');
-        s.addEventListener('click', () => history.replaceState(null, '', '#' + d.id));
+        if (s && d.id) s.addEventListener('click', () => history.replaceState(null, '', '#' + d.id));
       });
       window.addEventListener('hashchange', openFromHash);
       openFromHash();

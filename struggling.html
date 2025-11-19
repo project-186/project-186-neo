@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Struggling · Project-186</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Oswald -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&family=Oswald:wght@300..700&display=swap" rel="stylesheet">
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    .lesson { padding: 34px 0; border-top: 1px solid var(--edge); }
+    .lesson h1{ margin: 0 0 .3rem; text-transform: uppercase; letter-spacing: .06em; font-size: clamp(1.2rem, 2.8vw, 1.6rem); font-weight: 600;}
+    .subhead { color: var(--muted); margin: 0 0 1rem; letter-spacing: .06em; }
+
+    .stage { width: min(900px, 92vw); margin: 0 auto; }
+    .card {
+      border: 1px solid var(--edge);
+      border-radius: 12px;
+      background: rgba(255,255,255,.02);
+      padding: 1rem 1.1rem;
+      min-height: 160px;
+      display: grid; place-items: center;
+      text-align: center;
+    }
+
+    .pager {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: .9rem; gap: .75rem;
+    }
+    .btn[disabled] { opacity: .45; pointer-events: none; }
+
+    .counter {
+      margin: 0 auto; color: var(--muted);
+      letter-spacing: .04em; font-size: .95rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Static header -->
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="./">PROJECT-186</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="./">Home</a>
+        <a href="about.html">About</a>
+        <a href="resources.html">Resources</a>
+        <a href="iterations.html">Iterations</a>
+        <a href="timeline.html">Timeline</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="lesson">
+      <div class="container">
+        <h1>I don't blame you. The modern world has failed its humans.</h1>
+        <p class="subhead">Struggling.<span id="pageNum">1</span></p>
+      </div>
+
+      <div class="stage">
+        <article id="pageContent" class="card" aria-live="polite" aria-atomic="true">
+          <em>not yet realized</em>
+        </article>
+
+        <div class="pager">
+          <button id="btnPrev" class="btn outline" type="button" aria-label="Previous page">Back</button>
+          <span class="counter" id="countLabel">1 / 3</span>
+          <button id="btnNext" class="btn outline" type="button" aria-label="Next page">Next</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        <a href="https://github.com/platon-krose" target="_blank" rel="noopener noreferrer">platon-krose</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+  (function(){
+    const PAGES = [
+      { html: '<em>not yet realized</em>' },
+      { html: '<em>not yet realized</em>' },
+      { html: '<em>not yet realized</em>' },
+    ];
+
+    const contentEl = document.getElementById('pageContent');
+    const pageNumEl = document.getElementById('pageNum');
+    const countLabel = document.getElementById('countLabel');
+    const prevBtn = document.getElementById('btnPrev');
+    const nextBtn = document.getElementById('btnNext');
+
+    function clamp(i){ return Math.max(1, Math.min(PAGES.length, i)); }
+    function getIndexFromHash(){
+      const n = parseInt(location.hash.replace('#',''), 10);
+      return Number.isFinite(n) ? clamp(n) : 1;
+    }
+
+    let idx = getIndexFromHash();
+
+    function render(){
+      const page = PAGES[idx-1];
+      contentEl.innerHTML = page.html;
+      pageNumEl.textContent = String(idx);
+      countLabel.textContent = idx + ' / ' + PAGES.length;
+      prevBtn.disabled = (idx === 1);
+      nextBtn.disabled = (idx === PAGES.length);
+      if (location.hash !== '#' + idx) history.replaceState(null, '', '#' + idx);
+    }
+
+    prevBtn.addEventListener('click', ()=>{ idx = clamp(idx-1); render(); });
+    nextBtn.addEventListener('click', ()=>{ idx = clamp(idx+1); render(); });
+
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'ArrowRight' && idx < PAGES.length){ idx++; render(); }
+      else if (e.key === 'ArrowLeft' && idx > 1){ idx--; render(); }
+    });
+
+    window.addEventListener('hashchange', ()=>{
+      idx = getIndexFromHash();
+      render();
+    });
+
+    render();
+  })();
+  </script>
+</body>
+</html>

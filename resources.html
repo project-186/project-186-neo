@@ -5,21 +5,19 @@
   <title>Resources · Project-186</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Oswald -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&family=Oswald:wght@300..700&display=swap" rel="stylesheet">
 
-  <!-- Site styles (relative path for GitHub Pages compatibility) -->
+  <!-- Site styles -->
   <link rel="stylesheet" href="css/styles.css" />
 
-  <!-- Page-local styles (tiny) -->
   <style>
     .resources { padding: 34px 0; border-top: 1px solid var(--edge); }
     .resources h1 { margin: 0 0 .5rem; text-transform: uppercase; letter-spacing: .08em; }
     .resources .lead { color: var(--muted); margin: 0 0 1.25rem; }
 
-    /* Vertical stack instead of grid */
     .stack {
       width: min(1000px, 92vw);
       margin: 0 auto;
@@ -34,30 +32,63 @@
       padding: 1rem 1rem 1.1rem;
     }
     .card h2 {
-      margin: 0 0 .5rem;
+      margin: 0 0 .7rem;
       text-transform: uppercase;
       letter-spacing: .06em;
       font-size: 1.15rem;
+      text-align: center;
     }
+
+    /* Centered buttons with flanking rules */
     .links {
       list-style: none;
       margin: 0;
       padding: 0;
       display: grid;
-      gap: .45rem;
+      gap: .7rem;
     }
+    .links li {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      /* keep the whole row centered within the card */
+      justify-content: center;
+    }
+    .links li::before,
+    .links li::after {
+      content: "";
+      height: 1px;
+      background: var(--edge);
+      flex: 1 1 20%;
+      max-width: 160px;       /* prevents lines from getting too long on desktop */
+      opacity: .7;
+    }
+
     .links a {
       text-decoration: none;
-      display: inline-block;
       border: 1px solid var(--edge);
       border-radius: 10px;
-      padding: .55rem .7rem;
+      padding: .6rem .9rem;
+      display: inline-block;
+      text-align: center;
+      min-width: 190px;       /* gives all buttons a consistent presence */
     }
-    .links a:hover { text-decoration: underline; }
+    .links a:hover {
+      text-decoration: underline;
+      /* let the button pop by dimming the side rules slightly */
+    }
+    .links li:hover::before,
+    .links li:hover::after { opacity: .4; }
+
+    /* Keep it clean on small screens */
+    @media (max-width: 420px){
+      .links li::before,
+      .links li::after { display: none; }
+      .links a { min-width: 0; width: 100%; }
+    }
   </style>
 </head>
 <body>
-  <!-- Static header -->
   <header class="site-header">
     <div class="container">
       <a class="brand" href="./">PROJECT-186</a>
@@ -79,30 +110,40 @@
       </div>
 
       <div class="stack">
-        <!-- Primary resources 186.neo -->
         <article class="card">
           <h2>Primary resources · 186.neo</h2>
           <ul class="links">
-            <li><a href="#" target="_blank" rel="noopener">Example A</a></li>
-            <li><a href="#" target="_blank" rel="noopener">Example B</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="iterations.html">Iterations</a></li>
+            <li><a href="timeline.html">Timeline</a></li>
+            <li><a href="struggling.html">I'm Struggling</a></li>
+            <li><a href="breakthrough.html">The Breakthrough</a></li>
+            <li><a href="future.html">The Future</a></li>
+            <li><a href="paradox.html">The Paradox</a></li>
+            <li><a href="meme.html">The Meme</a></li>
+            <li><a href="revolution.html">Revolution?</a></li>
+            <li><a href="religion.html">Why Religion?</a></li>
           </ul>
         </article>
 
-        <!-- Scripture resources -->
         <article class="card">
-          <h2>Scripture resources</h2>
+          <h2>Artifacts</h2>
           <ul class="links">
-            <li><a href="#" target="_blank" rel="noopener">Example A</a></li>
-            <li><a href="#" target="_blank" rel="noopener">Example B</a></li>
+            <li><a href="artifactintro.html">Artifact Protocol Explained</a></li>
+            <li><a href="">Diagrams</a></li>
+            <li><a href="">Text</a></li>
+            <li><a href="">Cards</a></li>
           </ul>
         </article>
 
-        <!-- External resources -->
         <article class="card">
           <h2>External resources</h2>
           <ul class="links">
-            <li><a href="https://github.com/project-186" target="_blank" rel="noopener">Project-186 Github</a></li>
-            <li><a href="https://github.com/verse-668" target="_blank" rel="noopener">Verse-668 Github</a></li>
+            <li><a href="https://github.com/project-186" target="_blank" rel="noopener">Project-186 GitHub</a></li>
+            <li><a href="https://github.com/verse-668" target="_blank" rel="noopener">Verse-668 GitHub</a></li>
+            <li><a href="https://medium.com/@ksar1" target="_blank" rel="noopener">Medium</a></li>
+            <li><a href="">Social media</a></li>
           </ul>
         </article>
       </div>
@@ -116,6 +157,5 @@
       </p>
     </div>
   </footer>
-
 </body>
 </html>
