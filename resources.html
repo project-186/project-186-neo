@@ -39,6 +39,40 @@
       text-align: center;
     }
 
+    /* Expandable sub-cards */
+    .exp { display: grid; gap: .6rem; }
+    .exp details {
+      border: 1px solid var(--edge);
+      border-radius: 10px;
+      background: rgba(255,255,255,.03);
+      overflow: clip;
+    }
+    .exp summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      padding: .7rem .85rem;
+      cursor: pointer;
+      font-family: "Oswald", system-ui, sans-serif;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .exp summary::-webkit-details-marker { display: none; }
+
+    .exp .arrow {
+      border: solid currentColor;
+      border-width: 0 2px 2px 0;
+      padding: 4px;
+      transform: rotate(45deg);
+      opacity: .8;
+      transition: transform .18s ease;
+    }
+    details[open] .arrow { transform: rotate(-135deg); }
+
+    .exp .body { padding: .6rem .85rem .9rem; }
+
     /* Centered buttons with flanking rules */
     .links {
       list-style: none;
@@ -51,7 +85,6 @@
       display: flex;
       align-items: center;
       gap: .75rem;
-      /* keep the whole row centered within the card */
       justify-content: center;
     }
     .links li::before,
@@ -60,10 +93,9 @@
       height: 1px;
       background: var(--edge);
       flex: 1 1 20%;
-      max-width: 160px;       /* prevents lines from getting too long on desktop */
+      max-width: 160px;
       opacity: .7;
     }
-
     .links a {
       text-decoration: none;
       border: 1px solid var(--edge);
@@ -71,16 +103,12 @@
       padding: .6rem .9rem;
       display: inline-block;
       text-align: center;
-      min-width: 190px;       /* gives all buttons a consistent presence */
+      min-width: 190px;
     }
-    .links a:hover {
-      text-decoration: underline;
-      /* let the button pop by dimming the side rules slightly */
-    }
+    .links a:hover { text-decoration: underline; }
     .links li:hover::before,
     .links li:hover::after { opacity: .4; }
 
-    /* Keep it clean on small screens */
     @media (max-width: 420px){
       .links li::before,
       .links li::after { display: none; }
@@ -110,41 +138,87 @@
       </div>
 
       <div class="stack">
+        <!-- Primary -->
         <article class="card">
           <h2>Primary resources · 186.neo</h2>
-          <ul class="links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="iterations.html">Iterations</a></li>
-            <li><a href="timeline.html">Timeline</a></li>
-            <li><a href="struggling.html">I'm Struggling</a></li>
-            <li><a href="breakthrough.html">The Breakthrough</a></li>
-            <li><a href="future.html">The Future</a></li>
-            <li><a href="paradox.html">The Paradox</a></li>
-            <li><a href="meme.html">The Meme</a></li>
-            <li><a href="revolution.html">Revolution?</a></li>
-            <li><a href="religion.html">Why Religion?</a></li>
-          </ul>
+          <div class="exp">
+            <details>
+              <summary><span>Primary</span><span class="arrow" aria-hidden="true"></span></summary>
+              <div class="body">
+                <ul class="links">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="about.html">About</a></li>
+                  <li><a href="iterations.html">Iterations</a></li>
+                  <li><a href="timeline.html">Timeline</a></li>
+                </ul>
+              </div>
+            </details>
+            <details>
+              <summary><span>How do I begin to understand it?</span><span class="arrow" aria-hidden="true"></span></summary>
+              <div class="body">
+                <ul class="links">
+                  <li><a href="struggling.html">I'm Struggling</a></li>
+                  <li><a href="breakthrough.html">The Breakthrough</a></li>
+                  <li><a href="future.html">The Future</a></li>
+                  <li><a href="paradox.html">The Paradox</a></li>
+                  <li><a href="meme.html">The Meme</a></li>
+                  <li><a href="revolution.html">Revolution?</a></li>
+                  <li><a href="religion.html">Why Religion?</a></li>
+                </ul>
+              </div>
+            </details>
+          </div>
         </article>
 
+        <!-- Artifacts -->
         <article class="card">
           <h2>Artifacts</h2>
-          <ul class="links">
-            <li><a href="artifactintro.html">Artifact Protocol Explained</a></li>
-            <li><a href="">Diagrams</a></li>
-            <li><a href="">Text</a></li>
-            <li><a href="">Cards</a></li>
-          </ul>
+          <div class="exp">
+            <details>
+              <summary><span>Protocol</span><span class="arrow" aria-hidden="true"></span></summary>
+              <div class="body">
+                <ul class="links">
+                  <li><a href="artifact_intro.html">Artifact Protocol Explained</a></li>
+                  
+                </ul>
+              </div>
+            </details>
+            <details>
+              <summary><span>Artifacts</span><span class="arrow" aria-hidden="true"></span></summary>
+              <div class="body">
+                <ul class="links">
+                  <li><a href="">Diagrams</a></li>
+                  <li><a href="">Text</a></li>
+                  <li><a href="">Cards</a></li>
+                </ul>
+              </div>
+            </details>
+          </div>
         </article>
 
+        <!-- External -->
         <article class="card">
           <h2>External resources</h2>
-          <ul class="links">
-            <li><a href="https://github.com/project-186" target="_blank" rel="noopener">Project-186 GitHub</a></li>
-            <li><a href="https://github.com/verse-668" target="_blank" rel="noopener">Verse-668 GitHub</a></li>
-            <li><a href="https://medium.com/@ksar1" target="_blank" rel="noopener">Medium</a></li>
-            <li><a href="">Social media</a></li>
-          </ul>
+          <div class="exp">
+            <details>
+              <summary><span>Code</span><span class="arrow" aria-hidden="true"></span></summary>
+              <div class="body">
+                <ul class="links">
+                  <li><a href="https://github.com/project-186" target="_blank" rel="noopener">Project-186 GitHub</a></li>
+                  <li><a href="https://github.com/verse-668" target="_blank" rel="noopener">Verse-668 GitHub</a></li>
+                </ul>
+              </div>
+            </details>
+            <details>
+              <summary><span>Memes </span><span class="arrow" aria-hidden="true"></span></summary>
+              <div class="body">
+                <ul class="links">
+                  <li><a href="https://medium.com/@ksar1" target="_blank" rel="noopener">Medium</a></li>
+                  <li><a href="">Social media</a></li>
+                </ul>
+              </div>
+            </details>
+          </div>
         </article>
       </div>
     </section>
