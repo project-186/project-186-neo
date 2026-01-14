@@ -5,25 +5,21 @@
   <title>Timeline · Project-186</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Oswald -->
+  <!-- Oswald + Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300..700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&family=Oswald:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap" rel="stylesheet">
 
   <!-- Reuse site styles -->
   <link rel="stylesheet" href="css/styles.css" />
 
-  <!-- Page-local styles (minimal) -->
   <style>
     html { scroll-behavior: smooth; }
 
-    /* Section */
     .timeline { padding: 34px 0; border-top: 1px solid var(--edge); }
     .timeline h1 { margin: 0 0 .5rem; text-transform: uppercase; letter-spacing: .08em; }
     .timeline .lead { color: var(--muted); margin: 0 0 1.25rem; }
 
-    /* Year nav (above the bar) */
     .year-nav{
       width: min(1000px, 92vw);
       margin: 8px auto 26px;
@@ -56,11 +52,10 @@
     .nav-btn:hover{ color:#fff; }
     .nav-btn[disabled]{ opacity:.45; cursor: default; }
 
-    /* Track + points */
     .timeline-wrap {
       position: relative;
       width: min(1000px, 92vw);
-      height: 120px;              /* room for labels */
+      height: 120px;
       margin: 20px auto 8px;
     }
     .timeline-track {
@@ -68,25 +63,23 @@
       height: 8px;
       top: 50%; transform: translateY(-50%);
       border-radius: 999px;
-      background: linear-gradient(90deg, #2a1f55, #0f2a52); /* default gradient */
+      background: linear-gradient(90deg, #2a1f55, #0f2a52);
       box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
     }
     .timeline-points { list-style: none; margin: 0; padding: 0; }
     .timeline-points li {
       position: absolute; top: 50%;
-      left: var(--pos);                 /* e.g., "--pos: 25%" */
+      left: var(--pos);
       transform: translate(-50%, -50%);
       text-align: center;
       min-width: 0;
     }
-
-    /* Make the whole point (dot + label) a link for bigger tap target */
     .timeline-points a.point {
       position: relative;
       display: block;
       text-decoration: none;
       color: inherit;
-      padding-bottom: 36px; /* extra click area beneath the dot */
+      padding-bottom: 36px;
     }
     .timeline-points .dot {
       display: inline-block;
@@ -95,12 +88,10 @@
       border: 2px solid rgba(255,255,255,.25);
       box-shadow: 0 0 0 2px rgba(0,0,0,.35);
     }
-    /* Live dot: solid red; track splits colors at this position */
     .timeline-points .dot.live{
-      background: #e53935; /* red */
+      background: #e53935;
       border-color: rgba(255,255,255,.85);
     }
-
     .timeline-points .label {
       position: absolute;
       top: 16px; left: 50%; transform: translateX(-50%);
@@ -117,7 +108,6 @@
     }
     .timeline-points a.point:hover .label { text-decoration: underline; }
 
-    /* Legend (below the timeline) */
     .legend {
       width: min(1000px, 92vw);
       margin: 8px auto 0;
@@ -139,7 +129,6 @@
       border: 2px solid rgba(255,255,255,.85);
     }
 
-    /* Event cards (always visible, not tied to year view) */
     .events { width: min(1000px, 92vw); margin: 16px auto 0; display: grid; gap: .75rem; }
     .event {
       border: 1px solid var(--edge);
@@ -151,13 +140,11 @@
     .event h3 { margin: 0 0 .25rem; text-transform: uppercase; letter-spacing: .06em; }
     .event .meta { color: var(--muted); font-size: .95rem; margin: 0 0 .35rem; }
 
-    /* Brief highlight when scrolled to */
     .event.highlight {
       box-shadow: 0 0 0 2px #fff inset, 0 0 0 2px rgba(255,255,255,.2);
       transition: box-shadow .6s ease;
     }
 
-    /* Per-year visibility */
     .year-timeline{ display:none; }
     .year-timeline.active{ display:block; }
 
@@ -168,8 +155,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Static header  -->
   <header class="site-header">
     <div class="container">
       <a class="brand" href="./">PROJECT-186</a>
@@ -192,12 +177,12 @@
 
       <!-- Year navigation -->
       <div class="year-nav" aria-label="Year navigation">
-        <button class="nav-btn prev" data-year="2025" aria-label="Back to 2025">2024</button>
+        <button class="nav-btn prev" aria-label="Previous year"></button>
         <div class="year-label" id="yearLabel">2025</div>
-        <button class="nav-btn next" data-year="2026" aria-label="Forward to 2026">2026 →</button>
+        <button class="nav-btn next" aria-label="Next year"></button>
       </div>
 
-      <!-- ===== 2025 TIMELINE (with points) ===== -->
+      <!-- ===== Year timelines (2025–2030) ===== -->
       <section class="year-timeline active" data-year="2025" aria-labelledby="yearLabel">
         <div class="timeline-wrap">
           <div class="timeline-track" id="track-2025"></div>
@@ -214,27 +199,53 @@
                 <span class="label"><span class="tag">September 26</span>186.1 sealed</span>
               </a>
             </li>
-            <!-- Live red dot injected here for 2025 -->
           </ul>
         </div>
       </section>
 
-      <!-- ===== 2026 TIMELINE (no dots at all; entirely blue) ===== -->
       <section class="year-timeline" data-year="2026" aria-labelledby="yearLabel">
         <div class="timeline-wrap">
           <div class="timeline-track" id="track-2026"></div>
           <ul class="timeline-points" id="points-2026">
-            <!-- Intentionally empty -->
+            <li style="--pos: 3.56%">
+              <a class="point" href="#e-186-neo-1" aria-label="Jump to 186.neo.1 released">
+                <span class="dot" aria-hidden="true"></span>
+                <span class="label"><span class="tag">January 13</span>186.neo.1 released</span>
+              </a>
+            </li>
           </ul>
         </div>
       </section>
+      <section class="year-timeline" data-year="2027" aria-labelledby="yearLabel">
+        <div class="timeline-wrap">
+          <div class="timeline-track" id="track-2027"></div>
+          <ul class="timeline-points" id="points-2027"></ul>
+        </div>
+      </section>
+      <section class="year-timeline" data-year="2028" aria-labelledby="yearLabel">
+        <div class="timeline-wrap">
+          <div class="timeline-track" id="track-2028"></div>
+          <ul class="timeline-points" id="points-2028"></ul>
+        </div>
+      </section>
+      <section class="year-timeline" data-year="2029" aria-labelledby="yearLabel">
+        <div class="timeline-wrap">
+          <div class="timeline-track" id="track-2029"></div>
+          <ul class="timeline-points" id="points-2029"></ul>
+        </div>
+      </section>
+      <section class="year-timeline" data-year="2030" aria-labelledby="yearLabel">
+        <div class="timeline-wrap">
+          <div class="timeline-track" id="track-2030"></div>
+          <ul class="timeline-points" id="points-2030"></ul>
+        </div>
+      </section>
 
-      <!-- Legend (red dot = Today) -->
       <div class="legend" aria-label="Legend">
         <div class="card"><span class="dot" aria-hidden="true"></span> Today</div>
       </div>
 
-      <!-- Event cards (always visible) -->
+      <!-- Event cards -->
       <div class="events">
         <article class="event" id="e-platon-krose">
           <h3>March 9, 2025</h3>
@@ -251,7 +262,15 @@
           <p class="meta">186.1 sealed</p>
           <p>Project 186.1 is sealed, originally posted to
             <a href="https://project-186.surge.sh" target="_blank" rel="noopener noreferrer">project-186.surge.sh</a>.
-            More resources found <a href="iterations.html#i-186-1" target="_blank" rel="noopener noreferrer">here</a>.
+            More details found <a href="iterations.html#i-186-1">here</a>.
+          </p>
+        </article>
+
+        <article class="event" id="e-186-neo-1">
+          <h3>January 13, 2026</h3>
+          <p class="meta">186.neo.1 released</p>
+          <p>Project 186.neo.1 released, cementing the first sealed itertaion of 186.neo.
+            More details found <a href="iterations.html#i-186-neo">here</a>.
           </p>
         </article>
       </div>
@@ -268,7 +287,7 @@
 
   <script>
   (function(){
-    // Smooth-scroll + highlight for timeline anchors
+    // Anchor highlight
     document.querySelectorAll('.timeline-points a.point').forEach(a => {
       a.addEventListener('click', function(e){
         const id = this.getAttribute('href').slice(1);
@@ -281,36 +300,29 @@
       });
     });
 
-    // Year switching (only 2025 ⇄ 2026), with correct disabled boxes
-    const YEARS = [2025, 2026];
+    const YEARS = [2025, 2026, 2027, 2028, 2029, 2030];
     const yearSections = Array.from(document.querySelectorAll('.year-timeline'));
     const label = document.getElementById('yearLabel');
     const btnPrev = document.querySelector('.nav-btn.prev');
     const btnNext = document.querySelector('.nav-btn.next');
 
     function syncNav(y){
-      if (y === 2025){
-        btnPrev.textContent = '2024';
-        btnPrev.disabled = true;
-        btnPrev.setAttribute('aria-label','No earlier year');
-        btnNext.textContent = '2026 →';
-        btnNext.disabled = false;
-        btnNext.setAttribute('aria-label','Forward to 2026');
-      } else { // 2026
-        btnPrev.textContent = '← 2025';
-        btnPrev.disabled = false;
-        btnPrev.setAttribute('aria-label','Back to 2025');
-        btnNext.textContent = '2027';
-        btnNext.disabled = true;
-        btnNext.setAttribute('aria-label','No later year');
-      }
+      const minY = YEARS[0], maxY = YEARS[YEARS.length - 1];
+      const prevY = y - 1, nextY = y + 1;
+
+      btnPrev.textContent = prevY >= minY ? '← ' + prevY : String(prevY);
+      btnPrev.disabled = prevY < minY;
+      btnPrev.setAttribute('aria-label', prevY < minY ? 'No earlier year' : ('Back to ' + prevY));
+
+      btnNext.textContent = nextY <= maxY ? nextY + ' →' : String(nextY);
+      btnNext.disabled = nextY > maxY;
+      btnNext.setAttribute('aria-label', nextY > maxY ? 'No later year' : ('Forward to ' + nextY));
+
+      btnPrev.onclick = () => prevY >= minY && setYearView(prevY);
+      btnNext.onclick = () => nextY <= maxY && setYearView(nextY);
     }
 
-    btnPrev.addEventListener('click', () => setYearView(2025));
-    btnNext.addEventListener('click', () => setYearView(2026));
-
-    // --- Track color logic + live dot handling ---
-    function clearLiveDot(){
+    function clearLiveDots(){
       document.querySelectorAll('.timeline-points li.live-marker').forEach(n => n.remove());
     }
     function setTrackSolid(year, color){
@@ -333,45 +345,39 @@
       ul.appendChild(li);
     }
 
-    function updateTracksForYearView(activeYear){
-      clearLiveDot();
-
-      // Always set 2026 to solid blue (future), no dots
-      setTrackSolid(2026, '#0f2a52');
-
+    function updateAllTracks(activeYear){
+      clearLiveDots();
       const now = new Date();
-      const currentYear = now.getFullYear();
+      const cy = now.getFullYear();
 
-      if (currentYear >= 2026){
-        // Entire 2025 is past → solid purple; no live dot
-        setTrackSolid(2025, '#2a1f55');
-      } else if (currentYear === 2025){
-        // Split 2025 at today's position, add live red dot (only visible on 2025 view)
-        const start = new Date(2025, 0, 1);
-        const end   = new Date(2026, 0, 1);
-        const pct = Math.max(0, Math.min(1, (now - start) / (end - start)));
-        const pos = (pct * 100).toFixed(2) + '%';
-        setTrackSplitAt(2025, pos);
-        if (activeYear === 2025){
-          placeLiveDotAt(2025, pos);
+      YEARS.forEach(y => {
+        if (y < cy){
+          setTrackSolid(y, '#2a1f55');                      // past = purple
+        } else if (y > cy){
+          setTrackSolid(y, '#0f2a52');                      // future = blue
+        } else {
+          // current year: split at today's position
+          const start = new Date(y, 0, 1);
+          const end   = new Date(y + 1, 0, 1);
+          const pct   = Math.max(0, Math.min(1, (now - start) / (end - start)));
+          const pos   = (pct * 100).toFixed(2) + '%';
+          setTrackSplitAt(y, pos);
+          if (activeYear === y){
+            placeLiveDotAt(y, pos);                         // show dot only on active year
+          }
         }
-      } else {
-        // If it's before 2025, leave default gradient
-        const track = document.getElementById('track-2025');
-        if (track) track.style.background = 'linear-gradient(90deg, #2a1f55, #0f2a52)';
-      }
+      });
     }
 
     function setYearView(y){
       yearSections.forEach(s => s.classList.toggle('active', String(y) === s.dataset.year));
       label.textContent = String(y);
       syncNav(y);
-      updateTracksForYearView(y);
+      updateAllTracks(y);
     }
 
-    // Initial view: prefer current year if 2025/2026, else 2025
-    const currentYear = new Date().getFullYear();
-    const initial = YEARS.includes(currentYear) ? currentYear : 2025;
+    const cy = new Date().getFullYear();
+    const initial = YEARS.includes(cy) ? cy : YEARS[0];
     setYearView(initial);
   })();
   </script>

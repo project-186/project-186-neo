@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Paradox · Project-186</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Oswald + Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300..700&family=Inter:wght@300..900&display=swap" rel="stylesheet">
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <style>
+    .lesson { padding: 34px 0; border-top: 1px solid var(--edge); }
+    .stage { width: min(900px, 92vw); margin: 0 auto; }
+
+    /* Single accordion */
+    .acc { width: min(900px, 92vw); margin: 0 auto 1rem; }
+    .acc-item { border: 1px solid var(--edge); border-radius: 10px; background: rgba(255,255,255,.02); }
+    .acc-summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: .75rem .9rem; }
+    .acc-summary::-webkit-details-marker { display: none; }
+    .acc-body { padding: 0 .9rem .9rem; color: var(--muted); }
+    .arrow { border: solid currentColor; opacity: .8; border-width: 0 2px 2px 0; padding: 4px; transform: rotate(45deg); transition: transform .15s ease; }
+    details[open] .arrow { transform: rotate(-135deg); }
+
+    .card {
+      border: 1px solid var(--edge);
+      border-radius: 12px;
+      background: rgba(255,255,255,.02);
+      padding: 1.1rem 1.2rem;
+      min-height: 180px;
+      display: grid; place-items: center;
+      text-align: center;
+    }
+
+    /* Vertical branch buttons (none yet) */
+    .branches { margin-top: .9rem; display: grid; gap: .6rem; grid-template-columns: 1fr; }
+    .branch-btn, .branch-link {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      padding: .9rem 1rem;
+      border: 1px solid var(--edge);
+      border-radius: 10px;
+      background: transparent;
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+      font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: .02em;
+    }
+    .branch-btn:hover, .branch-link:hover { text-decoration: underline; }
+
+    .idtag {
+      margin: .7rem auto 0;
+      color: var(--muted);
+      letter-spacing: .04em;
+      font-size: .95rem;
+      text-align: center;
+      user-select: all;
+    }
+
+    em.dim { color: var(--muted); font-style: italic; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../">PROJECT-186</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="../">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../resources.html">Resources</a>
+        <a href="../iterations.html">Iterations</a>
+        <a href="../timeline.html">Timeline</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="lesson">
+      <div class="container"></div>
+
+      <div class="stage">
+        <!-- Single stage accordion -->
+        <div class="acc">
+          <details class="acc-item" id="stageBox">
+            <summary class="acc-summary"><span id="stageTitle">stage 0</span><span class="arrow" aria-hidden="true"></span></summary>
+            <div class="acc-body" id="stageBody"><em>not yet realized</em></div>
+          </details>
+        </div>
+
+        <!-- Main card -->
+        <article id="pageContent" class="card" aria-live="polite" aria-atomic="true">
+          <p>you can always look closer</p>
+        </article>
+
+        <!-- Branch buttons (none yet) -->
+        <div id="branchArea" class="branches"></div>
+
+        <!-- Node id -->
+        <p id="nodeId" class="idtag">P.0</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        <a href="https://github.com/platon-krose" target="_blank" rel="noopener noreferrer">platon-krose</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+  (function(){
+    const NODES = {
+      "P.0": { html: "<p>You can always look closer.</p>", branches: [] }
+    };
+
+    const STAGE_INFO = { 0: "<em>not yet realized</em>" };
+
+    const $content    = document.getElementById('pageContent');
+    const $nodeId     = document.getElementById('nodeId');
+    const $branch     = document.getElementById('branchArea');
+    const $stageTitle = document.getElementById('stageTitle');
+    const $stageBody  = document.getElementById('stageBody');
+
+    function parseHash(){
+      const raw = (location.hash || "").replace(/^#/, "");
+      return raw && /^P\.\d+$/.test(raw) ? raw : "P.0";
+    }
+
+    function renderStage(major){
+      $stageTitle.textContent = "stage " + major;
+      const txt = Object.prototype.hasOwnProperty.call(STAGE_INFO, major)
+        ? STAGE_INFO[major] : "<em class='dim'>not yet realized</em>";
+      $stageBody.innerHTML = txt;
+    }
+
+    function showNode(id){
+      const node = NODES[id];
+      const major = parseInt(id.split(".")[1], 10);
+      $content.innerHTML = node ? node.html : "<p><em class='dim'>not yet realized</em></p>";
+      $nodeId.textContent = id;
+      renderStage(major);
+
+      $branch.innerHTML = "";
+      (node && node.branches || []).forEach(({ text, to }) => {
+        if (to && (/^https?:\/\//i.test(to) || /\.html(\#.*)?$/i.test(to))) {
+          const a = document.createElement('a');
+          a.className = "branch-link"; a.href = to; a.target = "_blank"; a.rel = "noopener";
+          a.textContent = text; $branch.appendChild(a);
+        } else if (to) {
+          const btn = document.createElement('button');
+          btn.type = "button"; btn.className = "branch-btn"; btn.textContent = text;
+          btn.addEventListener('click', () => { location.hash = "#" + to; });
+          $branch.appendChild(btn);
+        }
+      });
+    }
+
+    window.addEventListener('hashchange', () => showNode(parseHash()));
+    if (!location.hash) history.replaceState(null, "", "#" + parseHash());
+    showNode(parseHash());
+  })();
+  </script>
+</body>
+</html>
